@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 
 app = Flask(__name__)
 #secrect_key se generuje nejlépe pomocí os.urandom(24)
@@ -53,13 +53,24 @@ def kvetak():
 
 @app.route("/login/", methods=["GET"])
 def login():
+    login = request.args.get("login")
+    passwd = request.args.get("passwd")
     return render_template("login.html.j2")
 
 @app.route("/login/", methods=["POST"])
 def login_post():
-
-
-
-
+    login = request.form.get("login")
+    passwd = request.form.get("passwd")
+    print(login, passwd)
+    if login and passwd:
+        session ["user"] = login
+        flash("uspesne prihlaseni")
+    else:
+        flash("neplatne udaje") 
     
     return redirect(url_for("login"))
+
+
+
+
+

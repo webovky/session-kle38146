@@ -20,6 +20,10 @@
     <li><a href="{{ url_for('login') }}">Login</a></li>
 </ul>
 
+{% for message in get_flashed_messages() %}
+    <p class="message">{{ message }}</p>
+
+{% endfor %}
 
 
 {% block obsah %}
